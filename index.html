@@ -8,8 +8,142 @@
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
-     
-      };
+        function getMail (array){
+        	for (var index = 0; index < array.length; index++){
+
+        		var mailSender = array[index].sender;	
+        		var mailSubject = array[index].subject;
+        		var mailDate = array[index].date;
+        		var mailBody = array[index].body;
+
+        		// New div for sender, subject, date display http://stackoverflow.com/questions/14094697/javascript-how-to-create-new-div-dynamically-change-it-move-it-modify-it-in
+        		var newDiv = document.createElement('div');
+			    newDiv.className = 'next';
+			    document.getElementById('mailBox').appendChild(newDiv);
+
+			    // Next sender, subject, date http://www.w3schools.com/js/js_htmldom_nodes.asp
+			    var nextSender = document.createElement('div');
+			    nextSender.className = "details";
+			    var nodeSender = document.getElementsByClassName('next')[index];
+			    nodeSender.appendChild(nextSender);
+			    nextSender.innerHTML = mailSender;
+
+			    var nextSubject = document.createElement('div');
+			    nextSubject.className = "details";
+			    var nodeSubject = document.getElementsByClassName('next')[index];
+			    nodeSubject.appendChild(nextSubject);
+			    nextSubject.innerHTML = mailSubject;
+
+			    var nextDate = document.createElement('div');
+			    nextDate.className = "details";
+			    var nodeDate = document.getElementsByClassName('next')[index];
+			    nodeDate.appendChild(nextDate);
+			    nextDate.innerHTML = mailDate;
+
+			    // Next message body
+			    var nextBody = document.createElement('div');
+			    nextBody.className = 'messageBody';
+			    var nodeBody = document.getElementsByClassName('next')[index];
+			    nodeBody.appendChild(nextBody);
+			    nextBody.innerHTML = mailBody;
+
+			    // Toggle??? http://www.w3schools.com/js/js_htmldom_eventlistener.asp
+			    var showMessage = document.getElementsByClassName('next')[index];
+			    showMessage.addEventListener('click', toggle);
+
+			};
+			// Inbox Count
+				var inboxCounter = document.getElementById('inboxCount');
+				var emailCount = geemails.length;
+				document.getElementById('inboxCount');
+				inboxCounter.innerHTML = "Inbox" + " " + "[" + emailCount + "]";
+
+				// Toggle Function??? http://www.w3schools.com/jsref/prop_element_classlist.asp
+				
+				function toggle (){
+					var showEmail = this.querySelector(".messageBody");
+					if (showEmail.classList.contains('show') === false){
+						return showEmail.className += ' show';
+					} else {
+					return showEmail.className = 'messageBody';
+					};
+				};	
+		};
+		getMail(geemails);
+
+
+	// Set up new mail to load using the original Java
+		function newMail(){
+			var newMessage = generateMessage();
+			window.geemails.push(newMessage);
+			// Create new email after the original 10
+			var lastMessage = geemails[geemails.length - 1];
+
+			console.log(lastMessage);
+
+			var mailSender = geemails[geemails.length -1].sender;	
+    		var mailSubject = geemails[geemails.length -1].subject;
+    		var mailDate = geemails[geemails.length -1].date;
+    		var mailBody = geemails[geemails.length -1].body;
+
+    		var newDiv = document.createElement('div');
+		    newDiv.className = 'next';
+		    document.getElementById('mailBox').appendChild(newDiv);
+
+		    var nextSender = document.createElement('div');
+		    nextSender.className = "details";
+		    var nodeSender = document.getElementsByClassName('next')[geemails.length -1];
+		    nodeSender.appendChild(nextSender);
+		    nextSender.innerHTML = mailSender;
+
+		    var nextSubject = document.createElement('div');
+		    nextSubject.className = "details";
+		    var nodeSubject = document.getElementsByClassName('next')[geemails.length -1];
+		    nodeSubject.appendChild(nextSubject);
+		    nextSubject.innerHTML = mailSubject;
+
+		    var nextDate = document.createElement('div');
+		    nextDate.className = "details";
+		    var nodeDate = document.getElementsByClassName('next')[geemails.length -1];
+		    nodeDate.appendChild(nextDate);
+		    nextDate.innerHTML = mailDate;
+
+		    var nextBody = document.createElement('div');
+		    nextBody.className = 'messageBody';
+		    var nodeBody = document.getElementsByClassName('next')[geemails.length -1];
+		    nodeBody.appendChild(nextBody);
+		    nextBody.innerHTML = mailBody;
+
+		    var showMessage = document.getElementsByClassName('next')[geemails.length -1];
+		    showMessage.addEventListener('click', toggle);
+
+		    function toggle (){
+				var showEmail = this.querySelector(".messageBody");
+				if (showEmail.classList.contains('show') === false){
+					return showEmail.className += ' show';
+				} else {
+				return showEmail.className = 'messageBody';
+				};
+			};
+		// Inbox Count
+			var inboxCounter = document.getElementById('inboxCount');
+			var emailCount = geemails.length;
+			document.getElementById('inboxCount');
+			inboxCounter.innerHTML = "Inbox" + " " + "[" + emailCount + "]";
+		};
+
+		// Intervals??? http://www.w3schools.com/js/js_timing.asp
+		function generateNewerMessage () {
+			setInterval (newMail,5000)
+		}
+
+		generateNewerMessage();
+
+
+		
+
+
+	};
     </script>
 	</head>
 
@@ -17,31 +151,21 @@
 		<div id="titlebar">
 				<h1><span style="color: #0057e7">G</span><span style="color: #d62d20">e</span><span style="color: #ffa700">e-</span><span style="color: #0057e7">Ma</span><span style="color: #008744">i</span><span style="color: #d62d20">l</span></h1>
 		</div>
-			<div id="sidebar">
-				<ul>
-					<li class="hvr-sweep-to-right">Inbox</li>
-					<li class="hvr-sweep-to-right">Drafts</li>
-					<li class="hvr-sweep-to-right">Sent</li>
-					<li class="hvr-sweep-to-right">Trash</li>	
-				</ul>
-			</div>	
+
+		<div id="sidebar">
+			<ul>
+				<li class="hvr-sweep-to-right"><a href="#"><div id="inboxCount"></div></a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Drafts</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Sent</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Trash</a></li>	
+			</ul>
+		</div>	
+
 		<div id="mailBox">
-			<div>
-				<div id="messageSenderDate">
-					<div id="sender">
-					
-					</div>
-
-					<div id="date">
-
-					</div>
-				</div>
-
-				<div id="messageBody">
-					
-				</div>
-			</div>
-		
+				<div class="details"></div>
+				<div class="details"></div>
+				<div class="details"></div>
+				<div class="messageBody"></div>	
 		</div>
 	</body>
 </html>
