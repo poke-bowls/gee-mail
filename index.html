@@ -59,7 +59,6 @@
 				inboxCounter.innerHTML = "Inbox" + " " + "[" + emailCount + "]";
 
 				// Toggle Function??? http://www.w3schools.com/jsref/prop_element_classlist.asp
-				
 				function toggle (){
 					var showEmail = this.querySelector(".messageBody");
 					if (showEmail.classList.contains('show') === false){
@@ -76,7 +75,7 @@
 		function newMail(){
 			var newMessage = generateMessage();
 			window.geemails.push(newMessage);
-			// Create new email after the original 10
+			// Create new email after the original 10, change index
 			var lastMessage = geemails[geemails.length - 1];
 
 			console.log(lastMessage);
@@ -89,25 +88,25 @@
     		var newDiv = document.createElement('div');
 		    newDiv.className = 'next';
 		    document.getElementById('mailBox').appendChild(newDiv);
-
+		    // Sender
 		    var nextSender = document.createElement('div');
 		    nextSender.className = "details";
 		    var nodeSender = document.getElementsByClassName('next')[geemails.length -1];
 		    nodeSender.appendChild(nextSender);
 		    nextSender.innerHTML = mailSender;
-
+		    // Subject
 		    var nextSubject = document.createElement('div');
 		    nextSubject.className = "details";
 		    var nodeSubject = document.getElementsByClassName('next')[geemails.length -1];
 		    nodeSubject.appendChild(nextSubject);
 		    nextSubject.innerHTML = mailSubject;
-
+		    // Date
 		    var nextDate = document.createElement('div');
 		    nextDate.className = "details";
 		    var nodeDate = document.getElementsByClassName('next')[geemails.length -1];
 		    nodeDate.appendChild(nextDate);
 		    nextDate.innerHTML = mailDate;
-
+		    // Body
 		    var nextBody = document.createElement('div');
 		    nextBody.className = 'messageBody';
 		    var nodeBody = document.getElementsByClassName('next')[geemails.length -1];
@@ -138,10 +137,6 @@
 		}
 
 		generateNewerMessage();
-
-
-		
-
 
 	};
     </script>
